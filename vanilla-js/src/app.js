@@ -1,12 +1,30 @@
-const http = require('http');
+const AppController = require("./controllers/appController");
+const express = require("express");
 
-const hostname = '127.0.0.1';
 const port = 3000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-  res.end("app.js");
-});
+app.get('/get', async (req, res) => {
+  try {
+    res.send(await new AppController().get())
+  }
+  catch (error) {
+    res.send(`Error: ${error}`);
+  }
+})
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.get('/insert', async (req, res) => {
+  try {
+    await new AppController().insert(Math.floor(Math.random() * 9999999));
+    res.redirect("/get");
+  }
+  catch (error) {
+    res.send(`Error: ${error}`);
+  }
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+module.exports = app;
