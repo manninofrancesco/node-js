@@ -1,3 +1,4 @@
+import { BaseModel } from "../models/BaseModel";
 import { BaseRepository } from "../repositories/BaseRepository";
 
 export class AppController {
@@ -7,7 +8,7 @@ export class AppController {
         return await new BaseRepository().get();
     }
 
-    async insert(input : Number) {
+    async insert(input: BaseModel) {
         return await new BaseRepository().insert(input);
     }
 

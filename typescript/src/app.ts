@@ -1,7 +1,9 @@
 import express, { Express, Request, Response } from 'express';
 import { AppController } from './controllers/appController';
+import { BaseModel } from './models/BaseModel';
 
 const app: Express = express();
+app.use(express.json())
 const port = 3000;
 
 app.get('/', async (req: Request, res: Response) => {
@@ -22,9 +24,10 @@ app.get('/get', async (req: Request, res: Response) => {
     }
 })
 
-app.get('/insert', async (req: Request, res: Response) => {
+app.put('/insert', async (req: Request, res: Response) => {
     try {
-        await new AppController().insert(Math.floor(Math.random() * 9999999));
+        let exampleModel: BaseModel = <BaseModel>req.body;
+        await new AppController().insert(exampleModel);
         res.redirect("/get");
     }
     catch (error) {

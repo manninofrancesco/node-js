@@ -1,4 +1,5 @@
 import pg from "pg";
+import { BaseModel } from "../models/BaseModel";
 
 export class BaseRepository {
     config: {
@@ -33,8 +34,8 @@ export class BaseRepository {
         return response.rows;
     }
 
-    async insert(input: Number) {
-        let query: string = `INSERT INTO "TestTable" VALUES (${input});`;
+    async insert(input: BaseModel) {
+        let query: string = `INSERT INTO "TestTable" VALUES (${input.Id});`;
         await this.ExecuteQuery(query);
     }
 
