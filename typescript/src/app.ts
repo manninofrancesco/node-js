@@ -24,9 +24,10 @@ app.get('/get', async (req: Request, res: Response) => {
     }
 })
 
-app.put('/insert', async (req: Request, res: Response) => {
+app.get('/insert', async (req: Request, res: Response) => {
     try {
-        let exampleModel: BaseModel = <BaseModel>req.body;
+        let exampleModel: BaseModel = new BaseModel(Math.floor(Math.random() * 9999999));;
+
         await new AppController().insert(exampleModel);
         res.redirect("/get");
     }
