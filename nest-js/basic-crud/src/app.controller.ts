@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Redirect, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { BaseModel } from './models/BaseModel';
 
@@ -17,13 +17,17 @@ export class AppController {
   }
 
   @Get("/insert")
-  async insert() {
+  @Redirect()
+  async insert(@Res() res: Response) {
     let testModel: BaseModel = new BaseModel(Math.floor(Math.random() * 9999999));
-    return await this.appService.insert(testModel);
+    await this.appService.insert(testModel);
+    return { url: "/get", statusCode: 302 };
   }
 
   @Get("/delete")
+  @Redirect()
   async delete() {
-    return await this.appService.delete();
+    await this.appService.delete();
+    return { url: "/get", statusCode: 302 };
   }
 }

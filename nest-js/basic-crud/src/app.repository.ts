@@ -48,7 +48,7 @@ export class AppRepository {
     }
 
     private async ExecuteQuery(query: string) {
-        const client = new pg.Client(this.config)
+        const client = new Client(this.config)
         await client.connect()
 
         await client.query(query)
